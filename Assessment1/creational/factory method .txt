@@ -1,0 +1,47 @@
+
+interface Notification {
+void send(String message);
+}
+
+class EmailNotification implements Notification {
+public void send(String message) {
+System.out.println("Sending email notification: " + message);
+}
+}
+
+class SMSNotification implements Notification {
+public void send(String message) {
+System.out.println("Sending SMS notification: " + message);
+}
+}
+
+class PushNotification implements Notification {
+public void send(String message) {
+System.out.println("Sending push notification: " + message);
+}
+}
+
+
+class NotificationFactory {
+public static Notification createNotification(String notificationType) {
+switch (notificationType) {
+case "email":
+return new EmailNotification();
+case "sms":
+return new SMSNotification();
+case "push":
+return new PushNotification();
+default:
+throw new IllegalArgumentException("Unknown notification type");
+}
+}
+}
+
+
+public class Main {
+public static void main(String[] args) {
+Notification notification = NotificationFactory.createNotification("email");
+notification.send("Hello, this is a test email!");
+}
+}
+

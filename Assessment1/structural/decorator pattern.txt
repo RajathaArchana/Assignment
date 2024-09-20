@@ -1,0 +1,69 @@
+import java.util.ArrayList;
+import java.util.List;
+
+interface Channel {
+void update(String news);
+}
+
+
+class Channel1 implements Channel {
+@Override
+public void update(String news) {
+System.out.println("Channel 1 received news: " + news);
+}
+}
+
+class Channel2 implements Channel {
+@Override
+public void update(String news) {
+System.out.println("Channel 2 received news: " + news);
+}
+}
+
+
+class NewsAgency {
+private List<Channel> channels = new ArrayList<>();
+
+public void addChannel(Channel channel) {
+channels.add(channel);
+}
+
+public void removeChannel(Channel channel) {
+channels.remove(channel);
+}
+
+public void notifyChannels(String news) {
+StringBuilder channelsReceived = new StringBuilder();
+for (int i = 0; i < channels.size(); i++) {
+if (i > 0) channelsReceived.append(", ");
+channelsReceived.append("channel ").append(i + 1);
+}
+System.out.println(channelsReceived + " received news: " + news);
+
+
+for (Channel channel : channels) {
+channel.update(news);
+}
+}
+}
+
+
+public class Main {
+public static void main(String[] args) {
+NewsAgency newsAgency = new NewsAgency();
+
+Channel channel1 = new Channel1();
+Channel channel2 = new Channel2();
+
+newsAgency.addChannel(channel1);
+newsAgency.addChannel(channel2);
+
+
+String news1 = "Breaking News: Observer Pattern";
+newsAgency.notifyChannels(news1);
+
+
+String news2 = "Update: More about Observer Pattern";
+newsAgency.notifyChannels(news2);
+}
+}

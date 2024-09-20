@@ -1,0 +1,48 @@
+public class ConfigurationManager {
+private static ConfigurationManager instance;
+private boolean initialized = false;
+
+
+private ConfigurationManager() {
+loadSettings();
+}
+
+
+public static ConfigurationManager getInstance() {
+if (instance == null) {
+instance = new ConfigurationManager();
+}
+return instance;
+}
+
+
+private void loadSettings() {
+
+System.out.println("Loading configuration settings...");
+initialized = true;
+}
+
+public String getSetting(String key) {
+
+return "Sample Value for " + key;
+}
+
+public void setSetting(String key, String value) {
+
+System.out.println("Setting " + key + " to " + value);
+}
+}
+
+
+public class Main {
+public static void main(String[] args) {
+ConfigurationManager config1 = ConfigurationManager.getInstance();
+ConfigurationManager config2 = ConfigurationManager.getInstance();
+
+System.out.println(config1 == config2); // Output: true
+
+
+System.out.println(config1.getSetting("app_name")); // Output: Sample Value for app_name
+config1.setSetting("app_name", "MyApp");
+}
+}

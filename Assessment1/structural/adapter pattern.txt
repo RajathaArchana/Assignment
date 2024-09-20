@@ -1,0 +1,33 @@
+
+interface Shape {
+void draw();
+}
+
+
+class Square {
+public void drawSquare() {
+System.out.println("Drawing a square.");
+}
+}
+
+
+class SquareAdapter implements Shape {
+private Square square;
+
+public SquareAdapter() {
+this.square = new Square();
+}
+
+@Override
+public void draw() {
+square.drawSquare();
+}
+}
+
+
+public class Main {
+public static void main(String[] args) {
+Shape shape = new SquareAdapter();
+shape.draw();
+}
+}
